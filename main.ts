@@ -17,9 +17,8 @@ namespace TelloControl {
         }
     }
 
+    // Will only work after you connect to WiFi (connectToWifi function)
     function sendCommandToTello(command: string): void {
-
-        // Will only work after you connect to WiFi (connectToWifi function)
         sendAT(`AT+CIPSEND=${command.length}`, 500);  // Send command length and command
         serial.writeString(command + "\r\n"); // Send the actual command
         basic.pause(500);
@@ -29,6 +28,11 @@ namespace TelloControl {
     function sendAT(command: string, wait: number = 0) {
         serial.writeString(`${command}\u000D\u000A`);
         basic.pause(wait);
+    }
+
+    function setupUDPConnection(): void {
+        sendAT(`AT+CIPSTART="UDP","${telloIP}",${commandPort}`, 500);
+        basic.pause(500); // Allow some time for connection setup
     }
 
     // Function to initialize ESP8266 and redirect serial communication
@@ -57,7 +61,7 @@ namespace TelloControl {
         sendCommandToTello("emergency");
     }
 
-    //% block="Move right"
+    //% block="Move Right"
     //% group="Maneuvers"
     export function right(): void {
         sendCommandToTello("right");
@@ -110,22 +114,14 @@ namespace TelloControl {
 
     // Connect to Tello Wi-Fi (1st block to use)
     //% group="Connection"
-    //% block="connect to Tello Wi-Fi SSID %ssid"
+    //% block="Connect to Tello Wi-Fi SSID %ssid"
     export function connectToWiFi(ssid: string): void {
-        setupUDPConnection(); // Run once
+        setupUDPConnection(); // Set up UDP connection first between the devices
         sendAT(`AT+CWJAP="${ssid}",""`, 5000); // Assuming no password is required
         readResponse(); // Display response on micro:bit
     }
     
-    // Seting up UDP connection (2nd block to use)
-    //% group="Connection"
-    //% block="Set up UDP connection"
-    export function setupUDPConnection(): void {
-        sendAT(`AT+CIPSTART="UDP","${telloIP}",${commandPort}`, 500);
-        basic.pause(500); // Allow some time for connection setup
-    }
-    
-    // Initialize Tello to receive commands  (3rd block to use)
+    // Initialize Tello to receive commands  (2nd block to use)
     //% block="Initialize Tello into SDK mode"
     //% group="Connection"
     export function initialize(): void {
