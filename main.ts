@@ -5,11 +5,11 @@ namespace TelloControl {
     // Initialize the connection variables
     let telloIP = "192.168.10.1";
     let commandPort = 8889;
+    let isConnected = false; // flag to check if connected previously
 
     // Function to read and display response on the micro:bit
     function readResponse(): void {
         let response = serial.readString();
-        let isConnected = false; // flag to check if connected previously
         if (response.includes("OK")) {
             if (!isConnected){
                 basic.showString("Connected");
