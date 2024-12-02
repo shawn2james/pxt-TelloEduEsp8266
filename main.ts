@@ -119,6 +119,7 @@ namespace TelloControl {
         setupUDPConnection(); // Set up UDP connection first between the devices
         sendAT(`AT+CWJAP="${ssid}",""`, 5000); // Assuming no password is required
         readResponse(); // Display response on micro:bit
+        setupUDPConnection(); // Set up UDP connection again
     }
     
     // Initialize Tello to receive commands  (2nd block to use)
