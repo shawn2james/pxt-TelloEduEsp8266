@@ -9,9 +9,12 @@ namespace TelloControl {
     // Function to read and display response on the micro:bit
     function readResponse(): void {
         let response = serial.readString();
+        let isConnected = false; // flag to check if connected previously
         if (response.includes("OK")) {
-            basic.showString("Connected");
-            basic.pause(1000);
+            if (!isConnected){
+                basic.showString("Connected");
+                let isConnected = true;
+            }
         } else {
             basic.showString("Failed");
             basic.showString(response); // Display the actual error
