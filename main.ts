@@ -11,6 +11,7 @@ namespace TelloControl {
         let response = serial.readString();
         if (response.includes("OK")) {
             basic.showString("Connected");
+            basic.pause(1000);
         } else {
             basic.showString("Failed");
             basic.showString(response); // Display the actual error
