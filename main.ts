@@ -125,7 +125,8 @@ namespace TelloControl {
         basic.pause(500); // Allow some time for connection setup
     }
     
-    //% block="Initialize Tello into SDK mode (3rd block to use)"
+    // Initialize Tello to receive commands  (3rd block to use)
+    //% block="Initialize Tello into SDK mode"
     //% group="Connection"
     export function initialize(): void {
         sendCommandToTello("command");
