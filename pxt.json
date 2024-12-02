@@ -1,5 +1,5 @@
 {
-    "name": "PowerIssueCheck",
+    "name": "TelloEduESP8266",
     "description": "",
     "dependencies": {
         "core": "*",
