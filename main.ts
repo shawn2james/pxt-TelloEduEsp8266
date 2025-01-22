@@ -1,5 +1,3 @@
-//% color=#126180 icon="\uf0fb" block="Tello Drone Control"
-//% groups="['Connection', 'Maneuvers']"
 namespace TelloControl {
 
     // Initialize the connection variables
@@ -11,9 +9,9 @@ namespace TelloControl {
     function readResponse(): void {
         let response = serial.readString();
         if (response.includes("OK")) {
-            if (!isConnected){
+            if (!isConnected) {
                 basic.showString("Connected");
-                let isConnected = true;
+                let isConnected2 = true;
             }
         } else {
             basic.showString("Failed");
@@ -65,28 +63,34 @@ namespace TelloControl {
         sendCommandToTello("emergency");
     }
 
-    //% block="Move Right"
+    //% block="Move Right $x cm"
     //% group="Maneuvers"
-    export function right(): void {
-        sendCommandToTello("right");
+    export function right(x: number): void {
+        sendCommandToTello(`right ${x}`);
     }
 
-    //% block="Move Left"
+    //% block="Move Left $x cm"
     //% group="Maneuvers"
-    export function left(): void {
-        sendCommandToTello("left");
+    export function left(x: number): void {
+        sendCommandToTello(`left ${x}`);
     }
 
-    //% block="Move Back"
+    //% block="Move Back $x cm"
     //% group="Maneuvers"
-    export function back(): void {
-        sendCommandToTello("back");
+    export function back(x: number): void {
+        sendCommandToTello(`back ${x}`);
     }
 
-    //% block="Move Forward"
+    //% block="Move Forward $x cm"
     //% group="Maneuvers"
-    export function forward(): void {
-        sendCommandToTello("forward");
+    export function forward(x:number): void {
+        sendCommandToTello(`forward ${x}`);
+    }
+
+    //% block="Go to \nx $x y $y z $z at speed $speed"
+    //% group="Maneuvers"
+    export function goTo(x:number, y:number, z:number, speed:number): void {
+        sendCommandToTello(`go ${x} ${y} ${z} ${speed}`);
     }
 
     //% block="Land"
@@ -106,10 +110,10 @@ namespace TelloControl {
     export function isWiFiConnected(): boolean {
         sendAT("AT+CWJAP?"); // Checks the current Wi-Fi status
         basic.pause(500); // Give time to get the response
-        let response = serial.readString(); // Read response from ESP8266
-        if (response.includes("No AP")) {
+        let response2 = serial.readString(); // Read response from ESP8266
+        if (response2.includes("No AP")) {
             return false; // Not connected
-        } else if (response.includes("OK") || response.includes("Connected")) {
+        } else if (response2.includes("OK") || response2.includes("Connected")) {
             return true; // Connected
         } else {
             return false; // In case of other unexpected responses
@@ -125,7 +129,7 @@ namespace TelloControl {
         readResponse(); // Display response on micro:bit
         setupUDPConnection(); // Set up UDP connection again
     }
-    
+
     // Initialize Tello to receive commands  (2nd block to use)
     //% block="Initialize Tello into SDK mode"
     //% group="Connection"
