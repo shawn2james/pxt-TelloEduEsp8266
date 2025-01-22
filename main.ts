@@ -51,10 +51,17 @@ namespace TelloControl {
         sendAT("AT+CWMODE=1", 500); // Set ESP8266 to Station Mode (STA mode)
     }
 
-    //% block="Flip"
+    enum FlipDirection {
+        Forward = "f",
+        Backward = "b",
+        Left = "l",
+        Right = "r"
+    }
+
+    //% block="Flip in direction %direction"
     //% group="Maneuvers"
-    export function flip(): void {
-        sendCommandToTello("flip b");
+    export function flipInDirection(direction: FlipDirection): void {
+        sendCommandToTello(`flip ${direction}`);
     }
 
     //% block="Emergency Stop"
