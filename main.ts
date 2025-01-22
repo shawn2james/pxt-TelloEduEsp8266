@@ -1,3 +1,4 @@
+TelloControl.flipInDirection(null)
 namespace TelloControl {
 
     // Initialize the connection variables
@@ -51,10 +52,16 @@ namespace TelloControl {
         sendAT("AT+CWMODE=1", 500); // Set ESP8266 to Station Mode (STA mode)
     }
 
+    //% blockId=flip_direction_enum block="Flip Direction"
+    //% enum
     enum FlipDirection {
+        //% block="Forward"
         Forward = "f",
+        //% block="Backward"
         Backward = "b",
+        //% block="Left"
         Left = "l",
+        //% block="Right"
         Right = "r"
     }
 
