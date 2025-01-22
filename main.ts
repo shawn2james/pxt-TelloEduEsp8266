@@ -87,7 +87,7 @@ namespace TelloControl {
         sendCommandToTello(`forward ${x}`);
     }
 
-    //% block="Go to \nx $x y $y z $z at speed $speed"
+    //% block="Go to $x $y $z at $speed"
     //% group="Maneuvers"
     export function goTo(x:number, y:number, z:number, speed:number): void {
         sendCommandToTello(`go ${x} ${y} ${z} ${speed}`);
