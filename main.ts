@@ -93,6 +93,18 @@ namespace TelloControl {
         sendCommandToTello(`go ${x} ${y} ${z} ${speed}`);
     }
 
+    //% block="Rotate clockwise $deg degrees"
+    //% group="Maneuvers"
+    export function rotatecw(deg: number): void {
+        sendCommandToTello(`cw ${deg}`);
+    }
+
+    //% block="Rotate anti-clockwise $deg degrees"
+    //% group="Maneuvers"
+    export function rotateccw(deg: number): void {
+        sendCommandToTello(`ccw ${deg}`);
+    }
+
     //% block="Land"
     //% group="Maneuvers"
     export function land(): void {
@@ -103,6 +115,12 @@ namespace TelloControl {
     //% group="Maneuvers"
     export function takeOff(): void {
         sendCommandToTello("takeoff");
+    }
+
+    //% block="Stop"
+    //% group="Maneuvers"
+    export function stop(): void {
+        sendCommandToTello("stop");
     }
 
     //% block="Wi-Fi connected"
